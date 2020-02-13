@@ -1,0 +1,65 @@
+---
+- hosts: all
+  tasks:
+    - name: copy .bashrc
+      copy:
+        src: ../dotfiles/.bashrc
+        dest: /home/vagrant/.bashrc
+    - name: Update all packages to the latest version
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: dist
+    - name: Ansible apt install docker
+      become: true
+      apt:
+        name: docker.io
+        state: present
+    - name: Ansible apt install tree
+      become: true
+      apt:
+        name: tree
+        state: present
+    - name: Add vagrant to docker group
+      become: true
+      user:
+        name: vagrant
+        shell: /bin/bash
+        groups: docker
+        append: yes
+    - name: Ensures /tmp/helm dir exists
+      file: path=/tmp/helm state=directory
+    - name: Download helm with checksum
+      get_url:
+        url: https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz
+        dest: /tmp/helm/helm.tar.gz
+        checksum: sha256:https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz.sha256sum
+      register: helm_file
+    - name: Extract helm tar into /tmp/
+      unarchive:
+        src: "{{ helm_file.dest }}"
+        dest: /tmp/helm/
+    - name: copy helm to /usr/local/bin/helm
+      become: true
+      copy:
+        src: /tmp/helm/linux-amd64/helm
+        dest: /usr/local/bin/helm
+        mode: '0655'
+    - name: Ensures /tmp/gravity dir exists
+      file: path=/tmp/gravity state=directory
+    - name: Download gravity with checksum
+      get_url:
+        url: https://get.gravitational.com/gravity-6.3.6-linux-x86_64-bin.tar.gz
+        dest: /tmp/gravity/gravity.tar.gz
+        checksum: sha256:402cfb68bf3a72ce1ff739993ce23abdae9b2419e48b4a8f5fa23b8d7e65a095
+      register: gravity_file
+    - name: Extract gravity tar into /tmp/
+      unarchive:
+        src: "{{ gravity_file.dest }}"
+        dest: /tmp/gravity/
+    - name: Install gravity
+      shell: "cd /tmp/gravity && ./install.sh"
+    - name: Clone gravitational quickstart project
+      git:
+        repo: https://github.com/gravitational/quickstart.git
+        dest: /home/vagrant/quickstart
