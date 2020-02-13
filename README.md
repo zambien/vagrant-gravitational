@@ -6,7 +6,7 @@ on any operating system supported by Vagrant since Ansible cannot be run on Wind
 
 The point of this was to learn how to use gravity and keep those notes in an as-code format for easy testing.
 
-Note that this only gets you to the point of having the gravity control ost ready for deployment.  To run,
+Note that this only gets you to the point of having the gravity control host ready for deployment.  To run,
 
 `vagrant up`
 
