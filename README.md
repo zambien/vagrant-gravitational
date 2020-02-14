@@ -1,5 +1,7 @@
 # vagrant-gravitational
 
+## Why?
+
 This is an as-code version of: https://gravitational.com/gravity/docs/quickstart/ using Vagrant, VirtualBox,
 and the built-in Vagrant ansible-local provisioner.  I used the ansible-local provisioner so that this could be used
 on any operating system supported by Vagrant since Ansible cannot be run on Windows as a controller.
@@ -7,7 +9,15 @@ on any operating system supported by Vagrant since Ansible cannot be run on Wind
 The point of this was to learn how to use gravity and keep those notes in an as-code format for easy testing.
 
 Note that this repo only gets you to the point of having the gravity control host and 3 deployment nodes ready 
-for deployment.  
+for deployment.
+
+**Hold up. Doesn't the gravitational quickstart already have a Vagrantfile?**
+
+It does. That repo assumes you are running on Linux and have a bunch of tools installed on your
+native Linux host.  This repo is designed to allow you to test gravity on Windows, Mac, or Linux
+and does not require you to install anything on your native host.  It also installs everything
+that is required for you.
+  
 
 ## Installation
 
@@ -57,7 +67,7 @@ ssh into your control host: `vagrant ssh gravity-control`
 
 Note, that you can reach your deployment nodes:
 
-`ping gravity-node1.local`
+`ping gravity-node0.local`
 
 This will get you ready to build your first gravity cluster:
 
