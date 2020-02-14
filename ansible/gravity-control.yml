@@ -1,10 +1,6 @@
 ---
 - hosts: all
   tasks:
-    - name: copy .bashrc
-      copy:
-        src: ../dotfiles/.bashrc
-        dest: /home/vagrant/.bashrc
     - name: Update all packages to the latest version
       become: true
       apt:

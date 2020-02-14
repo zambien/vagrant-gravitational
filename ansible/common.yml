@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: copy .bashrc
+      copy:
+        src: ../dotfiles/.bashrc
+        dest: /home/vagrant/.bashrc
+    - name: Ansible apt install avahi-daemon
+      become: true
+      apt:
+        name: avahi-daemon
+        state: present
+    - name: Ansible apt install libnss-mdns
+      become: true
+      apt:
+        name: libnss-mdns
+        state: present

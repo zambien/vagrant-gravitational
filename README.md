@@ -6,9 +6,21 @@ on any operating system supported by Vagrant since Ansible cannot be run on Wind
 
 The point of this was to learn how to use gravity and keep those notes in an as-code format for easy testing.
 
-Note that this only gets you to the point of having the gravity control host ready for deployment.  To run,
+Note that this repo only gets you to the point of having the gravity control host and 3 deployment nodes ready 
+for deployment.  
+
+## Installation
+
+To run,
 
 `vagrant up`
+
+or if you are in a hurry and want to bring the hosts up in parallel ([which Vagrant does not support](https://www.vagrantup.com/docs/virtualbox/usage.html)):
+
+`cat hostnames.txt | xargs -P4 -I {} vagrant up {}`
+
+This will take a while as it will pull down an ubuntu image, stand up 4 servers, update all of them,
+install ansible, and then install everything needed for gravity.
 
 Once this completes you will have a gravitational control server with all of the required components:
 
@@ -17,6 +29,39 @@ Once this completes you will have a gravitational control server with all of the
 * gravity
 * helm
 
-This will get you to this point currently:
+And you will have 3 empty nodes.
+
+If you want to see the status of your boxes, use `vagrant status`:
+
+```bash
+~#: vagrant status                                                            1 ↵  1193  18:20:33
+Current machine states:
+
+gravity-control           running (virtualbox)
+gravity-node0             running (virtualbox)
+gravity-node1             running (virtualbox)
+gravity-node2             running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.
+
+```
+
+This will get you ready to build your first gravity cluster:
 
 https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
+
+## Cleanup
+
+To shut down all the hosts, run
+
+`vagrant halt`
+
+To completely remove the hosts and their contents:
+
+`vagrant destroy`
+
+or if you don't want to be prompted before destroying each host:
+
+`vagrant destroy -f`
