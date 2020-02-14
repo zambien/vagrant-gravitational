@@ -1,3 +1,4 @@
+# Currently gravity install fails on 19.04 due to some missing kernel settings and is only supported up to Ubuntu 18.04.
 BOX_IMAGE = "bento/ubuntu-18.04"
 NODE_COUNT = 3
 
@@ -22,7 +23,7 @@ Vagrant.configure("2") do |config|
 		config.vm.define "gravity-node#{i}" do |node|
 			node.vm.box = BOX_IMAGE
 			node.vm.hostname = "gravity-node#{i}"
-            node.vm.network :private_network, ip: "10.0.0.#{i + 10}"
+            node.vm.network :private_network, ip: "10.0.0.#{i + 11}"
 			node.vm.provider "virtualbox" do |v|
 				v.memory = 2048
 				v.cpus = 2
