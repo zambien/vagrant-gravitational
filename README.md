@@ -1,22 +1,30 @@
 # vagrant-gravitational
 
+A Vagrant and VirtualBox based test-bed for Gravity.
+
+## Prerequisites
+
+* Vagrant
+* VirtualBox
+
 ## Why?
 
-This is an as-code version of: https://gravitational.com/gravity/docs/quickstart/ using Vagrant, VirtualBox,
+This is an as-code version of: https://gravitational.com/Gravity/docs/quickstart/ using Vagrant, VirtualBox,
 and the built-in Vagrant ansible-local provisioner.  I used the ansible-local provisioner so that this could be used
 on any operating system supported by Vagrant since Ansible cannot be run on Windows as a controller.
 
-The point of this was to learn how to use gravity and keep those notes in an as-code format for easy testing.
+The point of this was to learn how to use Gravity and keep those notes in an as-code format for easy testing.
 
-Note that this repo only gets you to the point of having the gravity control host and 3 deployment nodes ready 
+Note that this repo only gets you to the point of having the Gravity control host and 3 deployment nodes ready 
 for deployment.
 
 **Hold up. Doesn't the gravitational quickstart already have a Vagrantfile?**
 
 It does. That repo assumes you are running on Linux and have a bunch of tools installed on your
-native Linux host.  This repo is designed to allow you to test gravity on Windows, Mac, or Linux
-and does not require you to install anything on your native host.  It also installs everything
-that is required for you.
+native Linux host.  This repo is designed to allow you to test Gravity on Windows, Mac, or Linux
+and does not require you to install anything on your native host other than VirtualBox and Vagrant.
+
+It also installs everything that is required in the gravitational quickstart for you.
   
 
 ## Installation
@@ -33,13 +41,13 @@ Note, the `vagrant box add bento/ubuntu-19.10` part of the above command only ne
 one time but it won't hurt to run it more than once.
 
 This will take a while as it will pull down an ubuntu image, stand up 4 servers, update all of them,
-install ansible, and then install everything needed for gravity.
+install ansible, and then install everything needed for Gravity.
 
 Once this completes you will have a gravitational control server with all of the required components:
 
 * docker
 * git
-* gravity
+* gravitational tools
 * helm
 
 And you will have 3 empty nodes.
@@ -67,12 +75,13 @@ ssh into your control host: `vagrant ssh gravity-control`
 
 Note, that you can reach your deployment nodes:
 
-`ping gravity-node0.local`
+`ping 10.0.0.11`
 
-This will get you ready to build your first gravity cluster:
+This will get you ready to build your first Gravity cluster:
 
 https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
 
+or if you are feeling adventurous build your own cluster image!
 
 ## Cleanup
 
