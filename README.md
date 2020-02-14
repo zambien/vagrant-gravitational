@@ -17,7 +17,10 @@ To run,
 
 or if you are in a hurry and want to bring the hosts up in parallel ([which Vagrant does not support](https://www.vagrantup.com/docs/virtualbox/usage.html)):
 
-`cat hostnames.txt | xargs -P4 -I {} vagrant up {}`
+`vagrant box add bento/ubuntu-18.04 || cat hostnames.txt | xargs -P4 -I {} vagrant up {}`
+
+Note, the `vagrant box add bento/ubuntu-19.10` part of the above command only needs to be run
+one time but it won't hurt to run it more than once.
 
 This will take a while as it will pull down an ubuntu image, stand up 4 servers, update all of them,
 install ansible, and then install everything needed for gravity.
@@ -48,9 +51,18 @@ VM, run `vagrant status NAME`.
 
 ```
 
+## Using the hosts
+
+ssh into your control host: `vagrant ssh gravity-control`
+
+Note, that you can reach your deployment nodes:
+
+`ping gravity-node1.local`
+
 This will get you ready to build your first gravity cluster:
 
 https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
+
 
 ## Cleanup
 

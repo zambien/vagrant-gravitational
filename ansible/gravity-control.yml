@@ -27,9 +27,8 @@
       file: path=/tmp/helm state=directory
     - name: Download helm with checksum
       get_url:
-        url: https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz
+        url: https://get.helm.sh/helm-v2.16.3-linux-amd64.tar.gz
         dest: /tmp/helm/helm.tar.gz
-        checksum: sha256:https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz.sha256sum
       register: helm_file
     - name: Extract helm tar into /tmp/
       unarchive:

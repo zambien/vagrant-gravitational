@@ -1,4 +1,4 @@
-BOX_IMAGE = "bento/ubuntu-19.10"
+BOX_IMAGE = "bento/ubuntu-18.04"
 NODE_COUNT = 3
 
 Vagrant.configure("2") do |config|
@@ -6,6 +6,10 @@ Vagrant.configure("2") do |config|
 		control.vm.box = BOX_IMAGE
 		control.vm.hostname = "gravity-control"
 		control.vm.network :private_network, ip: "10.0.0.10"
+		control.vm.provider "virtualbox" do |v|
+			v.memory = 2048
+			v.cpus = 4
+		end
 
 		# Run Ansible from the Vagrant VM
 		# Run gravity-control playbook only on gravity-control
@@ -19,6 +23,10 @@ Vagrant.configure("2") do |config|
 			node.vm.box = BOX_IMAGE
 			node.vm.hostname = "gravity-node#{i}"
             node.vm.network :private_network, ip: "10.0.0.#{i + 10}"
+			node.vm.provider "virtualbox" do |v|
+				v.memory = 2048
+				v.cpus = 2
+			end
 		end
 	end
 
