@@ -1,15 +1,19 @@
-# Currently gravity install fails on 19.04 due to some missing kernel settings and is only supported up to Ubuntu 18.04.
-BOX_IMAGE = "bento/ubuntu-18.04"
-NODE_COUNT = 3
+API_VERSION = 2
+
+# Require YAML module
+require 'yaml'
+
+# Read YAML file with box details
+vagrant_config = YAML.load_file('./vagrant_config.yaml')
 
 Vagrant.configure("2") do |config|
 	config.vm.define "gravity-control" do |control|
-		control.vm.box = BOX_IMAGE
+		control.vm.box = vagrant_config["box-image"]
 		control.vm.hostname = "gravity-control"
 		control.vm.network :private_network, ip: "10.0.0.10"
 		control.vm.provider "virtualbox" do |v|
-			v.memory = 2048
-			v.cpus = 4
+			v.memory = vagrant_config['gravity_control']['memory']
+			v.cpus = vagrant_config['gravity_control']['cpus']
 		end
 
 		# Run Ansible from the Vagrant VM
@@ -19,14 +23,14 @@ Vagrant.configure("2") do |config|
 		end
 	end
 
-	(0..NODE_COUNT-1).each do |i|
+	(0..vagrant_config['gravity_nodes']['count'] - 1).each do |i|
 		config.vm.define "gravity-node#{i}" do |node|
-			node.vm.box = BOX_IMAGE
+			node.vm.box = vagrant_config["box-image"]
 			node.vm.hostname = "gravity-node#{i}"
             node.vm.network :private_network, ip: "10.0.0.#{i + 11}"
 			node.vm.provider "virtualbox" do |v|
-				v.memory = 2048
-				v.cpus = 2
+				v.memory = vagrant_config['gravity_nodes']['memory']
+				v.cpus = vagrant_config['gravity_nodes']['cpus']
 			end
 		end
 	end

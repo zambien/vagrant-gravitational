@@ -1,0 +1,10 @@
+---
+# Currently gravity install fails on 19.04 due to some missing kernel settings and is only supported up to Ubuntu 18.04.
+box-image: "bento/ubuntu-18.04"
+gravity_control:
+  cpus: 4
+  memory: 4096
+gravity_nodes:
+  count: 3
+  cpus: 2
+  memory: 2048

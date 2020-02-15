@@ -6,6 +6,10 @@ A Vagrant and VirtualBox based test-bed for Gravity.
 
 * Vagrant
 * VirtualBox
+* A fairly recent machine. 
+   - At least 4 cores
+   - 16 GB RAM
+      -  This will spin up 4 hosts with 10GB (1 * 4096 + (3 * 2048)) total RAM
 
 ## Why?
 
@@ -20,7 +24,7 @@ for deployment.
 
 **Hold up. Doesn't the gravitational quickstart already have a Vagrantfile?**
 
-It does. That repo assumes you are running on Linux and have a bunch of tools installed on your
+It does. That repo assumes you have and are willing to install a bunch of tools on your
 native Linux host.  This repo is designed to allow you to test Gravity on Windows, Mac, or Linux
 and does not require you to install anything on your native host other than VirtualBox and Vagrant.
 
@@ -71,17 +75,42 @@ VM, run `vagrant status NAME`.
 
 ## Using the hosts
 
-ssh into your control host: `vagrant ssh gravity-control`
+There were 4 hosts started when you ran the `vagrant up` command.  
+
+The first host that started has more RAM, CPU, and has all of the software required to use
+gravity.  We will ssh to that host, gravity-control, to use gravity.
+
+The three remaining hosts are "empty" hosts which will eventually be used by 
+gravity-control to create gravity nodes.
+
+SSH into the control host: `vagrant ssh gravity-control`. The u/p is vagrant on all hosts.
 
 Note, that you can reach your deployment nodes:
 
-`ping 10.0.0.11`
+```bash
+ping 10.0.0.11
+ping 10.0.0.12
+ping 10.0.0.13
+```
 
-This will get you ready to build your first Gravity cluster:
+The quickstart repo is already there on the gravity-control host, so cd into it:
+
+`cd quickstart`
+
+You are now ready to build your first Gravity cluster image and run the remainder of the
+gravity quickstart:
 
 https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
 
 or if you are feeling adventurous build your own cluster image!
+
+### Additional commands
+
+To copy the tar file to another host: `scp mattermost.tar vagrant@10.0.0.11:~/`
+
+To ssh onto a host: `ssh vagrant@10.0.0.11`
+
+To copy the gravity executable to another host: `scp gravity vagrant@10.0.0.12:~/`
 
 ## Cleanup
 
@@ -89,7 +118,7 @@ To shut down all the hosts, run
 
 `vagrant halt`
 
-To completely remove the hosts and their contents:
+To completely remove the hosts and their contents (and regain all your disk space):
 
 `vagrant destroy`
 
