@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 		control.vm.hostname = "gravity-control"
 		control.vm.network :private_network, ip: "10.0.0.10"
 		control.vm.provider "virtualbox" do |v|
-			v.memory = 2048
+			v.memory = 4096
 			v.cpus = 4
 		end
 

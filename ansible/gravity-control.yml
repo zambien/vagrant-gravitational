@@ -1,3 +1,4 @@
+# Install everything needed by the gravity control server
 ---
 - hosts: all
   tasks:
@@ -29,6 +30,7 @@
       get_url:
         url: https://get.helm.sh/helm-v2.16.3-linux-amd64.tar.gz
         dest: /tmp/helm/helm.tar.gz
+        checksum: sha256:9678eb726d6870e8eded204190357a0f494ed9d1803781b4bb80dde6427b086e
       register: helm_file
     - name: Extract helm tar into /tmp/
       unarchive:

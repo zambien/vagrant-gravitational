@@ -1,0 +1,67 @@
+# Common settings required for Gravitational: https://gravitational.com/gravity/docs/requirements/
+# Also, a nice bashrc
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: copy .bashrc
+      become: false
+      copy:
+        src: ../vagrant_config/.bashrc
+        dest: /home/vagrant/.bashrc
+    - name: Add the overlay module
+      modprobe:
+        name: overlay
+        state: present
+    - name: Add the br_netfilter module
+      modprobe:
+        name: br_netfilter
+        state: present
+    - name: Add the ebtable_filter module
+      modprobe:
+        name: ebtable_filter
+        state: present
+    - name: Add the ip_tables module
+      modprobe:
+        name: ip_tables
+        state: present
+    - name: Add the iptable_nat module
+      modprobe:
+        name: iptable_nat
+        state: present
+    - name: Add the iptable_filter module
+      modprobe:
+        name: iptable_filter
+        state: present
+    - name: Ensure modules are loaded on reboot
+      shell:
+        cmd: |
+          cat > /etc/modules-load.d/telekube.conf <<EOT
+          br_netfilter
+          overlay
+          ebtable_filter
+          ip_tables
+          iptable_nat
+          iptable_filter
+          EOT
+    - name: Ensure ipv4 and bridge mode are loaded on reboot
+      shell:
+        cmd: |
+          cat > /etc/sysctl.d/50-telekube.conf <<EOT
+          net.ipv4.ip_forward=1
+          net.bridge.bridge-nf-call-iptables=1
+          EOT
+    - name: Sysctl set net.ipv4.ip_forward to true
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes
+    - name: Sysctl set net.bridge.bridge-nf-call-iptables to true
+      sysctl:
+        name: net.bridge.bridge-nf-call-iptables
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes

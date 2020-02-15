@@ -6,6 +6,10 @@ A Vagrant and VirtualBox based test-bed for Gravity.
 
 * Vagrant
 * VirtualBox
+* A fairly recent machine. 
+   - At least 4 cores
+   - 16 GB RAM
+      -  This will spin up 4 hosts with 10GB (1 * 4096 + (3 * 2048)) total RAM
 
 ## Why?
 
