@@ -83,7 +83,7 @@ gravity.  We will ssh to that host, gravity-control, to use gravity.
 The three remaining hosts are "empty" hosts which will eventually be used by 
 gravity-control to create gravity nodes.
 
-SSH into the control host: `vagrant ssh gravity-control`
+SSH into the control host: `vagrant ssh gravity-control`. The u/p is vagrant on all hosts.
 
 Note, that you can reach your deployment nodes:
 
@@ -104,13 +104,19 @@ https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
 
 or if you are feeling adventurous build your own cluster image!
 
+### Additional commands
+
+To copy the tar file to another host: `scp mattermost.tar vagrant@10.0.0.11:~/`
+
+To ssh onto a host: `ssh vagrant@10.0.0.11`
+
 ## Cleanup
 
 To shut down all the hosts, run
 
 `vagrant halt`
 
-To completely remove the hosts and their contents:
+To completely remove the hosts and their contents (and regain all your disk space):
 
 `vagrant destroy`
 
