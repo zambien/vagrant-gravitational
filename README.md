@@ -75,13 +75,24 @@ VM, run `vagrant status NAME`.
 
 ## Using the hosts
 
-ssh into your control host: `vagrant ssh gravity-control`
+There were 4 hosts started when you ran the `vagrant up` command.  Three of those hosts are
+empty "bare metal" hosts which will eventually be used by gravity to create gravity nodes.
+
+The first host that started has more RAM, CPU, and has all of the software required to use
+gravity.  We will ssh to that host, gravity-control, to use gravity.
+
+SSH into the control host: `vagrant ssh gravity-control`
 
 Note, that you can reach your deployment nodes:
 
-`ping 10.0.0.11`
+```bash
+ping 10.0.0.11
+ping 10.0.0.12
+ping 10.0.0.13
+```
 
-This will get you ready to build your first Gravity cluster:
+You are now ready to build your first Gravity cluster image and run the remainder of the
+gravity quickstart:
 
 https://gravitational.com/gravity/docs/quickstart/#building-a-cluster-image
 
