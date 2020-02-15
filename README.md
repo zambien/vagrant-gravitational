@@ -24,7 +24,7 @@ for deployment.
 
 **Hold up. Doesn't the gravitational quickstart already have a Vagrantfile?**
 
-It does. That repo assumes you are running on Linux and have a bunch of tools installed on your
+It does. That repo assumes you have and are willing to install a bunch of tools installed on your
 native Linux host.  This repo is designed to allow you to test Gravity on Windows, Mac, or Linux
 and does not require you to install anything on your native host other than VirtualBox and Vagrant.
 
