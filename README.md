@@ -83,8 +83,6 @@ gravity.  We will ssh to that host, gravity-control, to use gravity.
 The three remaining hosts are "empty" hosts which will eventually be used by 
 gravity-control to create gravity nodes.
 
-
-
 SSH into the control host: `vagrant ssh gravity-control`
 
 Note, that you can reach your deployment nodes:
@@ -94,6 +92,10 @@ ping 10.0.0.11
 ping 10.0.0.12
 ping 10.0.0.13
 ```
+
+The quickstart repo is already there on the gravity-control host, so cd into it:
+
+`cd quickstart`
 
 You are now ready to build your first Gravity cluster image and run the remainder of the
 gravity quickstart:
