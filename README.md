@@ -75,11 +75,15 @@ VM, run `vagrant status NAME`.
 
 ## Using the hosts
 
-There were 4 hosts started when you ran the `vagrant up` command.  Three of those hosts are
-empty "bare metal" hosts which will eventually be used by gravity to create gravity nodes.
+There were 4 hosts started when you ran the `vagrant up` command.  
 
 The first host that started has more RAM, CPU, and has all of the software required to use
 gravity.  We will ssh to that host, gravity-control, to use gravity.
+
+The three remaining hosts are "empty" hosts which will eventually be used by 
+gravity-control to create gravity nodes.
+
+
 
 SSH into the control host: `vagrant ssh gravity-control`
 
