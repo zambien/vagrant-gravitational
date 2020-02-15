@@ -110,6 +110,8 @@ To copy the tar file to another host: `scp mattermost.tar vagrant@10.0.0.11:~/`
 
 To ssh onto a host: `ssh vagrant@10.0.0.11`
 
+To copy the gravity executable to another host: `scp gravity vagrant@10.0.0.12:~/`
+
 ## Cleanup
 
 To shut down all the hosts, run
